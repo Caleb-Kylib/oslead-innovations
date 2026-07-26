@@ -1,0 +1,232 @@
+/* 
+ * Oslead Innovations - Premium Animations Sheet
+ * Scroll animations, micro-interactions, float physics, and hover effects
+ */
+
+/* Easing curves matching Framer Motion */
+:root {
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scroll trigger basic reveal styles */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  will-change: transform, opacity;
+}
+
+.reveal.fade-up {
+  transform: translateY(40px);
+}
+
+.reveal.fade-down {
+  transform: translateY(-40px);
+}
+
+.reveal.fade-left {
+  transform: translateX(-40px);
+}
+
+.reveal.reveal-right {
+  transform: translateX(40px);
+}
+
+.reveal.scale-in {
+  transform: scale(0.9);
+}
+
+/* Activated states */
+.reveal.active {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* Staggered Delay Utilities */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+/* Image Reveal (Slide Overlay) */
+.image-reveal-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-reveal-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+  z-index: 2;
+}
+
+.image-reveal-wrapper.active::after {
+  animation: slideMask 1.2s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+}
+
+.image-reveal-wrapper img {
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 0.1s 0.6s, transform 1s var(--ease-out-expo) 0.6s;
+}
+
+.image-reveal-wrapper.active img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes slideMask {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  50.1% {
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+/* Text Reveal (Mask) */
+.text-reveal {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.text-reveal span {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.text-reveal.active span {
+  transform: translateY(0);
+}
+
+/* Floating Animation Keyframes */
+@keyframes floatEgg {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+@keyframes floatLeaf {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-20px) rotate(-15deg) scale(1.05); }
+}
+
+@keyframes floatFeather {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-10px) translateX(5px) rotate(5deg); }
+  75% { transform: translateY(-20px) translateX(-5px) rotate(-5deg); }
+}
+
+@keyframes gradientMovement {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Elements Placement & Styling */
+.floating-shape {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.float-egg {
+  animation: floatEgg 8s ease-in-out infinite;
+}
+
+.float-leaf {
+  animation: floatLeaf 9s ease-in-out infinite;
+}
+
+.float-feather {
+  animation: floatFeather 11s ease-in-out infinite;
+}
+
+/* Interactive Card Tilt & Elastic Hover */
+.tilt-card {
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1);
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* Magnetic Button Pull Indicator */
+.magnetic-btn {
+  display: inline-flex;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Ripple Interaction Canvas */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: rippleEffect 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--secondary-dark-green), var(--primary-green), var(--secondary-light-green));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMovement 6s linear infinite;
+}
+
+/* Glow Cards */
+.glow-card {
+  position: relative;
+}
+
+.glow-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  box-shadow: 0 0 30px rgba(46, 125, 50, 0.2);
+  opacity: 0;
+  transition: var(--transition-smooth);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glow-card:hover::after {
+  opacity: 1;
+}
