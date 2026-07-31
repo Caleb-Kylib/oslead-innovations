@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
   initMobileNav();
   initScrollProgress();
-  initCustomCursor();
   initButtonRipples();
   initBackToTop();
 });
@@ -92,57 +91,6 @@ function initScrollProgress() {
       const scrollPercent = (window.scrollY / docHeight) * 100;
       progressBar.style.width = scrollPercent + '%';
     }
-  });
-}
-
-/* 5. Custom Cursor Circle Follower */
-function initCustomCursor() {
-  // Check if device is desktop
-  if (window.matchMedia('(pointer: coarse)').matches) return;
-
-  const cursor = document.createElement('div');
-  const follower = document.createElement('div');
-  
-  cursor.classList.add('custom-cursor');
-  follower.classList.add('custom-cursor-follower');
-  
-  document.body.appendChild(cursor);
-  document.body.appendChild(follower);
-
-  let mouseX = 0, mouseY = 0;
-  let followerX = 0, followerY = 0;
-
-  window.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
-  });
-
-  // Smooth lerped follower animation
-  function animateFollower() {
-    const ease = 0.15;
-    followerX += (mouseX - followerX) * ease;
-    followerY += (mouseY - followerY) * ease;
-    
-    follower.style.left = followerX + 'px';
-    follower.style.top = followerY + 'px';
-    
-    requestAnimationFrame(animateFollower);
-  }
-  animateFollower();
-
-  // Scale cursor and change border on interactive link hovers
-  const interactives = document.querySelectorAll('a, button, .btn, input, textarea, select, .interactive-card, .map-placeholder');
-  interactives.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      cursor.classList.add('hovered');
-      follower.classList.add('hovered');
-    });
-    item.addEventListener('mouseleave', () => {
-      cursor.classList.remove('hovered');
-      follower.classList.remove('hovered');
-    });
   });
 }
 

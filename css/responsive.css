@@ -41,9 +41,13 @@
   .nav-links, .nav-btn {
     display: none !important;
   }
+
+  nav[aria-label="Main Navigation"] {
+    display: none !important;
+  }
   
   .hamburger {
-    display: block !important;
+    display: flex !important;
   }
   
   /* Footer */

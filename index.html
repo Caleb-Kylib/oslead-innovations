@@ -31,13 +31,16 @@
   <!-- Navigation Bar -->
   <header>
     <div class="nav-container">
+      <!-- Brand Logo -->
       <a href="index.html" class="logo">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6z"/>
-        </svg>
-        Oslead Innovations
+        <img src="assets/img/oslead-logo.png" alt="Oslead Innovations Logo" class="logo-img">
+        <div class="logo-text-wrap">
+          <span class="logo-text-main">Oslead Innovations</span>
+          <span class="logo-text-sub">Premium Poultry &amp; Hatchery</span>
+        </div>
       </a>
-      
+
+      <!-- Desktop Navigation -->
       <nav aria-label="Main Navigation">
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -48,19 +51,24 @@
         </ul>
       </nav>
 
-      <a href="contact.html" class="btn btn-primary nav-btn magnetic-btn">Request Quote</a>
-
-      <!-- Hamburger Button (Mobile Menu) -->
-      <button class="hamburger" aria-label="Toggle Navigation Menu">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-      </button>
+      <!-- Right-side controls -->
+      <div class="nav-right">
+        <a href="contact.html" class="btn btn-primary nav-btn magnetic-btn">Request Quote</a>
+        <button class="hamburger" aria-label="Toggle Navigation Menu">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- Side Drawer Mobile Nav -->
   <div class="mobile-nav">
+    <div class="mobile-nav-logo">
+      <img src="assets/img/oslead-logo.png" alt="Oslead Innovations Logo">
+      <span>Oslead Innovations</span>
+    </div>
     <ul class="mobile-nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="products.html">Products</a></li>
@@ -250,36 +258,45 @@
         <div class="testimonial-slider-wrapper">
           <div class="testimonial-slides">
             
-            <div class="testimonial-slide active">
+            <div class="testimonial-slide">
               <div class="testimonial-head">
-                <div class="farmer-avatar">
-                  JK
-                </div>
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Kamau" class="reviewer-avatar">
                 <div class="testimonial-title-col">
                   <h4>John Kamau</h4>
-                  <p>Commercial Farmer, Nakuru</p>
+                  <p>Local Guide • 14 reviews</p>
                 </div>
-                <div class="testimonial-stars">★★★★★</div>
               </div>
+              <div class="testimonial-stars">★★★★★ <span style="color:#70757a; font-size:0.85rem; margin-left: 8px;">2 months ago</span></div>
               <p class="testimonial-text">
                 "The 528 Egg Incubator I purchased from Oslead transformed my poultry business. Our hatch rates consistently hover around 93%, and their after-sales tech support has been absolutely stellar."
               </p>
             </div>
 
-            <!-- Pre-rendered second slide (hidden dynamically) -->
             <div class="testimonial-slide">
               <div class="testimonial-head">
-                <div class="farmer-avatar">
-                  AM
-                </div>
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Aminah Mutua" class="reviewer-avatar">
                 <div class="testimonial-title-col">
                   <h4>Aminah Mutua</h4>
-                  <p>Cooperative Lead, Eldoret</p>
+                  <p>Local Guide • 8 reviews</p>
                 </div>
-                <div class="testimonial-stars">★★★★★</div>
               </div>
+              <div class="testimonial-stars">★★★★★ <span style="color:#70757a; font-size:0.85rem; margin-left: 8px;">5 months ago</span></div>
               <p class="testimonial-text">
                 "We ordered 5,000 day-old broilers last month. Every single chick arrived active, energetic, and fully vaccinated. We have recorded less than 1.5% mortality so far. Highly recommend Oslead!"
+              </p>
+            </div>
+            
+            <div class="testimonial-slide">
+              <div class="testimonial-head">
+                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="David Ochieng" class="reviewer-avatar">
+                <div class="testimonial-title-col">
+                  <h4>David Ochieng</h4>
+                  <p>Local Guide • 21 reviews</p>
+                </div>
+              </div>
+              <div class="testimonial-stars">★★★★★ <span style="color:#70757a; font-size:0.85rem; margin-left: 8px;">1 year ago</span></div>
+              <p class="testimonial-text">
+                "Their veterinary consultancy is top-notch. They helped us formulate a feed plan that increased our layer production by 20% in just two months. Fantastic service from start to finish."
               </p>
             </div>
 
@@ -289,6 +306,7 @@
           <div class="slider-dots">
             <span class="dot active"></span>
             <span class="dot"></span>
+            <span class="dot"></span>
           </div>
         </div>
       </div>
@@ -297,22 +315,13 @@
     <!-- Slider JS Controller Link -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const slides = document.querySelectorAll('.testimonial-slide');
+        const slidesTrack = document.querySelector('.testimonial-slides');
         const dots = document.querySelectorAll('.slider-dots .dot');
         let currentSlide = 0;
+        const totalSlides = dots.length;
 
         function showSlide(index) {
-          slides.forEach((slide, i) => {
-            if (i === index) {
-              slide.style.display = 'block';
-              setTimeout(() => {
-                slide.style.opacity = '1';
-              }, 50);
-            } else {
-              slide.style.opacity = '0';
-              slide.style.display = 'none';
-            }
-          });
+          slidesTrack.style.transform = `translateX(-${index * 100}%)`;
           dots.forEach((dot, i) => {
             if (i === index) {
               dot.classList.add('active');
@@ -325,7 +334,7 @@
 
         // Auto play slider
         let autoSlide = setInterval(() => {
-          let next = (currentSlide + 1) % slides.length;
+          let next = (currentSlide + 1) % totalSlides;
           showSlide(next);
         }, 5000);
 
